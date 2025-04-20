@@ -66,7 +66,11 @@ class PassViewmodel with ChangeNotifier {
     }
 
     if (chars.isEmpty) {
-      Fluttertoast.showToast(msg: 'Select at least one Character set');
+      Fluttertoast.showToast(
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.teal,
+        gravity: ToastGravity.BOTTOM,
+        msg: 'Select at least one Character set');
       return;
     }
 
