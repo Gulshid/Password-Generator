@@ -1,76 +1,76 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:password_generator/Model_/pass_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PassViewmodel with ChangeNotifier {
-  bool IncludeLowerCase = true;
   bool IncludeUpperCase = true;
+  bool IncludeLowerCase = true;
   bool IncludeNumber = true;
-  bool Includesymbols = false;
+  bool IncludeSymbols = false;
   double length = 12;
 
   PassModel? _password;
   PassModel? get password => _password;
 
-  //set the lower Case value
-  void SetLowerCase(bool value) {
-    IncludeLowerCase = value;
-    notifyListeners();
-  }
-
-  //set the Upper Case value
+  //Set the Upper Case values
   void SetUpperCase(bool value) {
     IncludeUpperCase = value;
     notifyListeners();
   }
 
-  //set the Numbers value
+  //Set the Lower Case values
+  void SetLowerCase(bool value) {
+    IncludeLowerCase = value;
+    notifyListeners();
+  }
+
+  //Set the Number values
   void SetNumber(bool value) {
     IncludeNumber = value;
     notifyListeners();
   }
 
-  //set the Symbol value
-  void SetSymbol(bool value) {
-    Includesymbols = value;
+  //Set the Symbols values
+  void SetSymbols(bool values) {
+    IncludeSymbols = values;
     notifyListeners();
   }
 
-  //set the length
+  //Set the length of Password
   void SetLength(double len) {
     length = len;
     notifyListeners();
   }
 
   //function for Generator to generate the Password
-  void genrate_password() {
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  void generate_password() {
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
     const numbers = '0123456789';
-    const symbols = '!<>@#%^&*(-_+=|/?.,~";:{[}])';
+    const symbols = '!@#%^&*()[]';
 
-    String chars = '';
-    if (IncludeLowerCase) {
-      chars += lowercase;
-    }
+    String pass = '';
     if (IncludeUpperCase) {
-      chars += uppercase;
+      pass += uppercase;
+    }
+    if (IncludeLowerCase) {
+      pass += lowercase;
     }
     if (IncludeNumber) {
-      chars += numbers;
+      pass += numbers;
     }
-    if (Includesymbols) {
-      chars += symbols;
+    if (IncludeSymbols) {
+      pass += symbols;
     }
 
-    if (chars.isEmpty) {
+    if (pass.isEmpty) {
       Fluttertoast.showToast(
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.teal,
         gravity: ToastGravity.BOTTOM,
-        msg: 'Select at least one Character set');
+        backgroundColor: Colors.teal,
+        msg: 'Select at least one of them',
+      );
       return;
     }
 
@@ -78,7 +78,7 @@ class PassViewmodel with ChangeNotifier {
     final generated =
         List.generate(
           length.toInt(),
-          (index) => chars[random.nextInt(chars.length)],
+          (index) => pass[random.nextInt(pass.length)],
         ).join();
 
     _password = PassModel(value: generated);

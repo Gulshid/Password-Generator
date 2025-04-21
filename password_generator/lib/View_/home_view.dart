@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:password_generator/View_model/Pass_viewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -14,69 +15,20 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final VProvider = Provider.of<PassViewmodel>(context);
-    return Scaffold(body:
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children:[
-            Text('Length: ${VProvider.length.toInt()}', style: TextStyle(color: Colors.black, fontSize: 20.sp),),
-            Slider(
-              secondaryActiveColor: Colors.teal,
-              activeColor: Colors.teal,
-              value: VProvider.length,
-              onChanged: VProvider.SetLength,
-              min: 4,
-              max: 32,
-              divisions:28 ,
-              label: VProvider.length.toInt().toString(),
-              ),
-        
-        
-              SwitchListTile(
-                title: Text('Include Lower Case'),
-                value: VProvider.IncludeLowerCase,
-                onChanged: VProvider.SetLowerCase,
-                ),
-        
-        
-                SwitchListTile(
-                title: Text('Include Upper Case'),
-                value: VProvider.IncludeUpperCase,
-                onChanged: VProvider.SetUpperCase,
-                ),
-        
-        
-                SwitchListTile(
-                title: Text('Include Number Case'),
-                value: VProvider.IncludeNumber,
-                onChanged: VProvider.SetNumber,
-                ),
-        
-        
-                SwitchListTile(
-                title: Text('Include Symbol '),
-                value: VProvider.Includesymbols,
-                onChanged: VProvider.SetSymbol,
-                ),
-        
-                SizedBox(height: 20.h,),
-        
-                ElevatedButton(
-                onPressed: VProvider.genrate_password,
-                child: Text('Generate Password')),
-        
-                SizedBox(height: 20.h,),
-        
-                SelectableText(
-                  VProvider.password?.value??'',
-                  style: TextStyle(fontSize: 20.sp, color: Colors.black, ),
-                  textAlign: TextAlign.center,
-                )
-        
-            
-          ]
-        ),
-      ));
+    return Scaffold(
+      body: Column(
+        children: [
+          Text('Length: ${VProvider.length.toInt()}', style: GoogleFonts.aBeeZee(color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.bold),),
+          Slider(
+            value: VProvider.length,
+            onChanged: VProvider.SetLength,
+            max: 20,
+            min: 3,
+            divisions: 10,
+            label: VProvider.length.toInt().toString(),
+            ),
+          
+          
+          ]));
   }
 }
